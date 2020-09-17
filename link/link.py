@@ -19,6 +19,7 @@ class Link():
         return to_mac+','+to_link_layer
     
     def de_header_receive_message (self, receive_message):
+        print(type(receive_message), receive_message)
         to_mac_end = receive_message.find(",")
         to_network_layer = receive_message[to_mac_end+1:]
         return to_network_layer

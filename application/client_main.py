@@ -1,6 +1,5 @@
-
 from application.service_send_message import Service_send_message
-from network.network import Network #, ackflag
+from network.network import Network 
 from link.link import Link
 from physical.tcp_client import Tcp_client
 from timeit import default_timer as timer
@@ -25,22 +24,11 @@ def service(mylabel):
 		link = Link()
 		to_mac = link.find_next_mac(to_link_layer)
 		to_message = link.add_header_to_message(to_link_layer)
+
 		# to_message = to_mac,to_label,str(mylabel),to_message
 		# physical: client
 		client = Tcp_client(to_mac, to_message)
 		client.start_client()
-		
-		'''
-		# deal with trasfer info. 
-		# don't use. still got problem
-		start_wait = timer()
-		while not ackflag:
-			end_wait = timer()
-			if (end-start) > 10 :
-				print("lost packet")
-		print("packet reach distination")
-		ackflag = 0 #reset flag
-		'''
 
 		break
 
@@ -52,6 +40,7 @@ def system_forward_message(mylabel, to_link_layer):
 	link = Link()
 	to_mac = link.find_next_mac(to_link_layer)
 	to_message = link.add_header_to_message(to_link_layer)
+
 	# to_message = to_mac,to_label,str(mylabel),to_message
 	# physical: client
 	client = Tcp_client(to_mac, to_message)

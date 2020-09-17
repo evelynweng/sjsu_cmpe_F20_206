@@ -2,22 +2,24 @@
 
 import socket
 class Tcp_server():
-    def start_server(self):
-        TCP_IP = '127.0.0.1' #default local host name
-        TCP_PORT = 9999
-        BUFFER_SIZE = 1024  # Normally 1024
+    def __init__(self):
+        self.TCP_IP = socket.gethostname() #default local host name
+        self.TCP_PORT = 9999
+        self.BUFFER_SIZE = 1024  # Normally 1024
 
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.bind((TCP_IP, TCP_PORT))
-        s.listen(1)
-        
-        conn, addr = s.accept()
-        print ('Connection address:', addr)
-        # while 1: reopen when finished process input message
-        data = conn.recv(BUFFER_SIZE)
+        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.s.bind((self.TCP_IP, self.TCP_PORT))
+        self.s.listen(1)
+        print ("start listen")
+
+    def recv(self):
+        print("server waits for connection ..")
+        self.conn, self.addr = self.s.accept()
+        print ('Connection address:', self.addr)
+        data = self.conn.recv(self.BUFFER_SIZE)
         if data:
             data = data.decode()
             print ("received data:", data)
-            conn.send("ack".encode())  # echo
-        conn.close()
+            self.conn.send("router ack".encode())  # echo
+        self.conn.close()
         return data

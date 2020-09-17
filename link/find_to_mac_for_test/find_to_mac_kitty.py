@@ -10,6 +10,12 @@ class Find_to_mac():
                 s = line.split(",")
                 link_config.append((s[0], s[1][:-1]))  # endl at the end
         '''
-        to_mac = "13.52.77.84"
-        #to_mac = "127.0.0.1"
+        # for test case eve-->david(not exist)
+        # return None==drop the package
+        print("to_label before decideing mac:", to_label)
+        if to_label ==  "evelyn" or to_label == "eve" :
+            to_mac = "13.52.77.84"
+        else:
+            to_mac = "0.0.0.0"
+        
         return to_mac
